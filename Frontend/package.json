@@ -4,8 +4,20 @@
   "description": "Desktop frontend made in electron Js",
   "main": "main.js",
   "type": "module",
-  "build": {
-    "appId": "Genzo"
+    "build": {
+    "appId": "com.mitsukigroup.genzo",
+    "productName": "Genzo",
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon":"assets/icon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "directories": {
+      "output": "dist"
+    }
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

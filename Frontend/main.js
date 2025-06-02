@@ -19,8 +19,9 @@ if (!gotTheLock) {
 } else {
     // Handle second instance (for protocol activation)
     app.on('second-instance', (event, commandLine, workingDirectory) => {
-        // Someone tried to run a second instance, we should focus our window
-        if (mainWindow) {
+    // Someone tried to run a second instance, we should focus our window
+    if (mainWindow) {
+        if (!mainWindow.isDestroyed()) {
             if (mainWindow.isMinimized()) mainWindow.restore();
             mainWindow.focus();
 
@@ -29,8 +30,14 @@ if (!gotTheLock) {
             if (gotUrl.includes('myapp://')) {
                 handleProtocolUrl(gotUrl);
             }
+        } else {
+            // Optionally recreate the window if it was destroyed
+            mainWindow = createWindow(); // make sure this function exists and sets mainWindow
         }
-    });
+    } else {
+        mainWindow = createWindow();
+    }
+});
 }
 
 // let backendProcess = null;
